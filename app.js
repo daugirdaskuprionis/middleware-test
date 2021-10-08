@@ -17,8 +17,11 @@ function logger(req, res, next) {
 }
 
 function auth(req, res, next) {
-    console.log('Auth');
-    next();
+    if (req.query.admin === 'true') {
+        next();
+    } else {
+        res.send('No auth');
+    }
 }
 
 app.listen(8080, () => {console.log(`Server starts`)})
