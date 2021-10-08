@@ -7,12 +7,17 @@ app.get('/', (req, res) => {
     res.send('Home');
 });
 
-app.get('/users', (req, res) => {
+app.get('/users', auth, (req, res) => {
     res.send('Users');
 });
 
 function logger(req, res, next) {
-    console.log('Log');
+    console.log('Logger');
+    next();
+}
+
+function auth(req, res, next) {
+    console.log('Auth');
     next();
 }
 
