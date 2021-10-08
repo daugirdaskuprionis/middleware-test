@@ -8,8 +8,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/users', auth, (req, res) => {
-    console.log(`User is admin = ${req.admin}`)
-    res.send('Users');
+    if (req.query.user) {
+        res.send(`User logged in as ${req.query.user}`);
+    } else {
+        res.send(`Users`);
+    }
 });
 
 function logger(req, res, next) {
@@ -18,8 +21,7 @@ function logger(req, res, next) {
 }
 
 function auth(req, res, next) {
-    if (req.query.admin === 'true') {
-        req.admin = true;
+    if (req.query.user === 'user123') {
         next();
     } else {
         res.send('No auth');
